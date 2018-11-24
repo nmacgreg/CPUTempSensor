@@ -1,13 +1,34 @@
+
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2009, Giampaolo Rodola'. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
 from webthing import (Action, Event, Property, SingleThing, Thing, Value,
                       WebThingServer)
 import logging
 import time
 import uuid
 import subprocess
+import psutil
 
 def get_temp():
-    #result = subprocess.run(["sensors | grep \"Core 0\" | cut -c 16-19"], shell=True, stdout=subprocess.PIPE)
-    return 32.5
+    if not hasattr(psutil, "sensors_temperatures"):
+        sys.exit("platform not supported")
+    temps = psutil.sensors_temperatures()
+    if not temps:
+        sys.exit("can't read any temperature")
+    for name, entries in temps.items():
+        sum=0
+        count=0
+        for entry in entries:
+           # print("    %-20s %s °C (high = %s °C, critical = %s °C)" % ( entry.label or name, entry.current, entry.high, entry.critical))
+           sum=sum+entry.current 
+           count=count+1
+        average = sum / count
+        print("%s" % average)
+    return average
 
 def make_thing():
     thing = Thing('CPU Temp Sensor', ['MultiLevelSensor'], 'A web connected temperature sensor')
