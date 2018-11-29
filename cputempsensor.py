@@ -42,7 +42,7 @@ def make_thing():
                      'label': 'Temperature',
                      'type': 'number',
                      'description': 'The CPU temperature in degrees Celcius',
-                     'unit': 'degrees Celcius',
+                     'unit': '°C',
                  }))
 
     return thing
