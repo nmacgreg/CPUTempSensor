@@ -12,6 +12,7 @@ import time
 import uuid
 import subprocess
 import psutil
+import socket
 
 def get_temp():
     if not hasattr(psutil, "sensors_temperatures"):
@@ -31,7 +32,7 @@ def get_temp():
     return average
 
 def make_thing():
-    thing = Thing('CPU Temp Sensor', ['MultiLevelSensor'], 'A web connected temperature sensor')
+    thing = Thing('CPU Temp: ' + socket.gethostname(), ['MultiLevelSensor'], 'A web connected temperature sensor')
 
     thing.add_property(
         Property(thing,
