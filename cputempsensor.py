@@ -55,7 +55,7 @@ def run_server():
 
     # If adding more than one thing, use MultipleThings() with a name.
     # In the single thing case, the thing's name will be broadcast.
-    server = WebThingServer(SingleThing(thing), port=8888)
+    server = WebThingServer(SingleThing(thing), port=8887)
     try:
         logging.info('starting the server')
         server.start()
