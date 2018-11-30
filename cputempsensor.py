@@ -44,6 +44,7 @@ def make_thing():
                      'type': 'number',
                      'description': 'The CPU temperature in degrees Celcius',
                      'unit': '°C',
+                     'readOnly': True,
                  }))
 
     return thing
